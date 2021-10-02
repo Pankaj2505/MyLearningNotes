@@ -1,0 +1,149 @@
+				WorkArea			Unmodified(final)			Modified			Staging
+git init																							if file is not yet tracked using GIt ,this is the first command to run 
+git status																							to know file newfile, modified file, any merge pending, any commit pending
+git add				-------------------------------------------------------------->
+git rm --cached      <-------------------------------------------------------------
+
+git commit								<------------------------------------------
+git rm <filename>		remove form workarea
+
+if file got updated again you need to add to staging then commit
+git add														----------------------->
+
+git checkout		<---------------------															move last commited version workarea
+
+
+git diff			................................................................				comapre file between staging and workarea
+git diff --cached 						............................................				comapre file between staging and commited stage
+
+
+git branch <branchname >
+	go to master than 
+git merge <branchname>
+
+
+
+
+
+
+
+
+Note - always check the branch , if you have already move the code to production and want to update the code , 
+first create the branch , and do the changes , this way code for master brach willnot get modify
+
+
+
+
+
+move to local repository 
+git init   this will initialize the directory 
+git status this will give status of all untracked or staged file
+git add file name will move all file to staged area
+git commit it will save the snap
+
+To start tracking of a project you always has to give commit thats called initial commit
+
+to work with VM editor
+press i to move to insert mode
+give your comments 
+esc to move to control mode
+:wq to exist the Vm editor
+q is to exit
+
+Notpad filename.txt  to creat a text file
+if I use git bash , there i can use linux command, to add a file we can use TOuch 
+git add -A  to move all file to staging area
+
+
+Now if file is in staging area, and we edit the file , 
+file is available in staging area (previous version)
+file is available in Modified also( updated version)
+
+
+git add <filename> to moved it to staging area
+
+git commit -m "Added a new file"
+
+clear to clear your terminal
+
+git checkout <filename>  if you done some mistake and save the file , to recover the previous version 
+git checkout -f  to recover previous version for all file 
+
+git log   to check all commit 
+git log -p -2    to check last 2 commit 
+
+cls to clean git bash screen in window
+git diff   compare working tree to staging area
+git diff --staged  compare staging area with last commit
+
+
+to open any file in cmd just move to file path and then type file name and hit enter
+
+
+git commit -a -m "skipped stageing area and added message"
+
+git rm <filename>  remove data from working area and staging area
+
+git rm --cached <filename> remove data only from staging area to working area
+
+git status -s   to check the small status of files, the first box denote file in staging area, and second box denote working area
+
+create a .gitignore file in directory using notpad .gitignore or if using git bash then touch .gitignore. now add remove file which you want to ignore
+*.txt ----to ignore all file with some specific extension
+/filename.txt ------to check some file in specfic path , it start from where gitignore file
+folder/  --- to ignore a folder/
+
+
+
+Branches
+	copy of same project , we can perform the development here. this will not effect the other branches
+git branch <branchName> to add a new branch
+git brandh 	 to check all available branch
+
+the green color tell on which branch you are 
+
+git -b <branchname > crate the new branch and checkout to it 
+
+Note - remember if you are in branch master, all file will so code which committed in branch master
+when you switch to other bracnch - file will get change and you will see changes you have done on that branch
+
+git checkout <branchName>   to switch to mentioned branch
+
+to merge the branch to master first you need to switch to master, then use merge command
+git checkout master
+git merge <branchName>
+
+
+
+Git hub
+
+create your repository in git hub 
+from their add the git remote line and run in git bash 
+
+Git remote origin <url> -- this command will add the url to variable name origin 
+
+git remote command will connect your local reposiotry to your remote repository 
+
+git remote -v - shows fetch and push URL
+
+git push origin master            push master to origin 
+
+
+SSH and GPG Key , -- lets says you have private repository , so to communicate with private repository , you shuld use these certificate key 
+
+pull request -- this mean we want to change the code , then we will ask owner by sending a pull request 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
