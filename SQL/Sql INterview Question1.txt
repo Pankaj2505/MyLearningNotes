@@ -1,0 +1,236 @@
+table
+	Emp[empid, Name , MangerID, deptID, salary]
+	Department[]deptID, DeptName]
+
+Find Duplicate reports in table 
+	select *
+	from emp
+	group by empid
+	order by empid, name
+	having count(empid) > 1
+	
+	select *, 
+	rownumber() over (partition by empid, order by empid) as rownumber
+	from emp
+	where rownumber > 1
+	
+	
+Delete all duplicate in table
+	
+	with cte as (
+	
+		select empid, 
+		rownumber() over (partition by empid, order by empid) as rownumber
+		from emp
+		
+	)
+	
+	delete from cte where rownumber > 1
+	
+find the manager name for each emp where empid and manager id in same table 
+	
+	select empname, manger name 
+	from emp e1
+	left join emp e2
+	where e1.mangerid = e2.empID
+
+find the second maximum slaary 
+
+	select max(salary)
+	from emp where salary < (
+		select max(salary)
+		from emp
+	)
+	
+	select salary 
+	from emp
+	order by salary desc
+	offset 1 row
+	fetch next 1 row only 
+	
+	select salary 
+	from emp 
+	where slary not in ( select distinct top(2)  salary from emp order by slary desc)
+	
+find nth highest slaary
+	select min(salary )
+	from emp 
+	where slary not in ( select distinct top(nth)  salary from emp order by slary desc)
+	
+	with cte as (
+		select salary , 
+		denserank() over (orderby salry desc) rank
+		from emp
+	)
+	select * from cte where rank= 3
+	
+	
+find max slary from each department 
+	select salary , 
+	rownumber() over (partition by deptID order by salary desc) rownumber
+	from emp
+	where rownumber = 1 
+	
+	
+	select max(salary), * 
+	from emp
+	group by deptID
+	
+	
+alaternative of top
+
+	set rowcount = 3
+	select * from emp
+	set row coutn = 0
+
+
+Replace multiple comma with single comma
+
+	input        abc,,,eff,,,,,,,,,gh,,jkl,,,
+	
+	declare @inputstr  varchar(100) =  'abc,,,eff,,,,,,,,,gh,,jkl,,,'
+	
+	select replace( replace (replace(@inputstr, ',', '.,'), ',.', ''), '.,' , ',')
+	
+How many s are in text - ramesssssshhhh
+
+	declare var vharchar(50) = "ramesssssh"
+	
+	select len(var) -len(replace(var, 's',""))
+
+query to get attendence count
+	1	1,2,3
+	2	2,3,4,5
+	3	3,4,5,6,7,8,9
+	
+	
+	we can find the count of comma present
+	
+	declare @tt table(empID int, data varchar(100))
+	insert into @tt values(1, '1,2,3') , (2, '2,3,4,5'), (3, '3,4,5,6,7,8,9')
+	
+	select empid, len(data)-len(replace(data,',','')) )
+
+
+
+query to swap table colmn
+
+	declare @tbl table(id varchar(50), mame varchar(50))
+	insert into @tbl values(1,'pankaj'),(2,'rahul'),(3,'sankarachayra')	
+
+	update @tbl
+	set id =name , name=id
+	
+https://www.youtube.com/watch?v=sa6_kqlglLs	
+Update date of joining where emp id - 1
+
+	update emp
+	set joiing date = '15-jul-2020' where empID = 1
+
+fetch current date
+	select getdate()
+query to get last day of previous month
+	select dateadd(month, -1, getdate())
+	order by get()
+	
+query to replace first name P with $
+	select replace (firstname ,'p','$')
+	from emp
+	
+query to fetch domain from email address----------------------------------------------------------
+	declare email varhcar(50)="pkj.bhatt@yahoo.com")
+	
+	select substring(email, index(email, '@'), len())
+	
+update name removing training spaces
+	update emp 
+	set firstname = trim(firstname)
+
+fetch emp details who has joined in 2020
+	select * from emp where year(dateofjoin) =2020
+	
+get even and odd rows
+	with cte as (
+		select rownumber() order by(empid asc) rownumber
+		from emp
+	)
+	even 
+		select * from cte where mod(rownum,  2) == 0
+	odd
+		select * from cte where mod(rownum,  2) == 1
+	 
+copy a table 
+	with data
+		select * into #temp from emp
+	without data	
+		select * from emp where 1=2
+		
+fetch top three highest salary 
+	select top (3) salary 
+	from emp
+	order by salary desc
+	
+
+fetch first and last row of a table 
+	with cte as()
+		select *, rownumber() over (order by emp id) from emp
+	)
+	select * from cte where rownum in (1, max(rownum))
+	
+get count of records
+
+	will this count null and duplicate 
+	select count(*) from emp  								gets every thing
+	select distinct count(*) from emp  						gets only distnct  but null included
+	select count(empid) 									null not included
+	select distinct count(empid ) from emp 					not null, not duplicate
+	
+	
+deparment wise count of emo
+	select deparmentID, count(*)
+	from emp
+	group by (deparmentID)
+	order by department ID
+	
+
+fetch department where no of employee are less than 4
+
+	select deparmentID, count(*)
+	from emp
+	group by (deparmentID)
+	HAVING count(*) <4 
+	order by department ID
+	
+fetch max slary department wise
+	select deparmentID, max(salary)
+	from emp
+	group by (deparmentID)
+	order by department ID
+	
+fetch details of emp getting max salry in each department
+	select * from emp  where salary in (
+		select max(salary) from from emp
+		group by (deparmentID)
+	)
+	
+fetch 50% records of a table 
+	with cte as (
+		select *, rownumber()over (order by empid) from emp
+	)
+	select top(maxrow/2) * from cte		
+
+select * from emp where computerid is null
+
+
+delete duplicate records
+	select * 
+	from emp e1 join emp e2
+	using empid, name
+	
+find nth highest salary 
+
+select max(salary ) from emp wheere salary < select top 1 salary from (select distinct top 5 salary form emp order by salary desc) order by salary asc
+
+	
+			
+			
